@@ -22,6 +22,13 @@ Public Class Form1
         ccb.ValueSeparator = ", "
         ccb.SetItemChecked(0, True)
         ccb.SetItemChecked(1, True)
+
+        For i As Integer = 0 To colorArr.Length - 1
+            cb.Items.Add(New Item(colorArr(i), i))
+        Next
+        cb.MaxDropDownItems = 5
+        cb.DisplayMember = "Name"
+
     End Sub
 
     Private Sub ccb_DropDownClosed(ByVal sender As Object, ByVal e As EventArgs) Handles ccb.DropDownClosed

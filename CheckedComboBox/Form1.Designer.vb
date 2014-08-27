@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.ccb = New CheckedComboBox.Ui.CheckedComboBox
         Me.txtOut = New System.Windows.Forms.TextBox
+        Me.cb = New System.Windows.Forms.ComboBox
         Me.SuspendLayout()
         '
         'ccb
@@ -50,11 +51,20 @@ Partial Class Form1
         Me.txtOut.Size = New System.Drawing.Size(275, 182)
         Me.txtOut.TabIndex = 1
         '
+        'cb
+        '
+        Me.cb.FormattingEnabled = True
+        Me.cb.Location = New System.Drawing.Point(7, 50)
+        Me.cb.Name = "cb"
+        Me.cb.Size = New System.Drawing.Size(276, 20)
+        Me.cb.TabIndex = 2
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(292, 266)
+        Me.Controls.Add(Me.cb)
         Me.Controls.Add(Me.txtOut)
         Me.Controls.Add(Me.ccb)
         Me.Name = "Form1"
@@ -65,5 +75,6 @@ Partial Class Form1
     End Sub
     Friend WithEvents ccb As CheckedComboBox.Ui.CheckedComboBox
     Friend WithEvents txtOut As System.Windows.Forms.TextBox
+    Friend WithEvents cb As System.Windows.Forms.ComboBox
 
 End Class
