@@ -248,7 +248,16 @@ Namespace Ui
             End Set
         End Property
 
-        Public Shadows Property DataSource() As Object
+        Public Overloads Property ValueMember() As String
+            Get
+                Return _dropdown.List.ValueMember
+            End Get
+            Set(ByVal value As String)
+                _dropdown.List.ValueMember = value
+            End Set
+        End Property
+
+        Public Overloads Property DataSource() As Object
             Get
                 Return _dropdown.List.DataSource
             End Get
