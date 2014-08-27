@@ -251,13 +251,15 @@ Namespace Ui
             End Set
         End Property
 
-        ''' <summary>
-        ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内の項目のコレクションを取得します。
-        ''' </summary>
-        ''' <returns>
-        ''' <see cref="T:System.Windows.Forms.CheckedListBox"/> 内の項目を表す <see cref="T:System.Windows.Forms.CheckedListBox.ObjectCollection"/> コレクション。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
+        Public Shadows Property DataSource() As Object
+            Get
+                Return _dropdown.List.DataSource
+            End Get
+            Set(ByVal value As Object)
+                _dropdown.List.DataSource = value
+            End Set
+        End Property
+
         Public Overloads ReadOnly Property Items() As CheckedListBox.ObjectCollection
             Get
                 Return _dropdown.List.Items

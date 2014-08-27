@@ -14,20 +14,25 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim items As New List(Of Item)
         For i As Integer = 0 To colorArr.Length - 1
-            ccb.Items.Add(New Item(colorArr(i), i))
+            items.Add(New Item(colorArr(i), i))
         Next
         ccb.MaxDropDownItems = 5
         ccb.DisplayMember = "Name"
+        ccb.ValueMember = "Val"
+        ccb.DataSource = items
         ccb.ValueSeparator = ", "
         ccb.SetItemChecked(0, True)
         ccb.SetItemChecked(1, True)
 
-        For i As Integer = 0 To colorArr.Length - 1
-            cb.Items.Add(New Item(colorArr(i), i))
-        Next
+        'For i As Integer = 0 To colorArr.Length - 1
+        '    cb.Items.Add(New Item(colorArr(i), i))
+        'Next
         cb.MaxDropDownItems = 5
         cb.DisplayMember = "Name"
+        cb.ValueMember = "Val"
+        cb.DataSource = items
 
     End Sub
 
