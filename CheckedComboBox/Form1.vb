@@ -10,7 +10,7 @@ Public Class Form1
         InitializeComponent()
 
         ' InitializeComponent() 呼び出しの後で初期化を追加します。
-        AddHandler ccb.ItemCheck, AddressOf ccb_ItemCheck
+        'AddHandler ccb.ItemCheck, AddressOf ccb_ItemCheck
     End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -44,7 +44,7 @@ Public Class Form1
         txtOut.AppendText(sb.ToString & vbCrLf)
     End Sub
 
-    Private Sub ccb_ItemCheck(ByVal sender As Object, ByVal e As ItemCheckEventArgs)
+    Private Sub ccb_ItemCheck(ByVal sender As Object, ByVal e As ItemCheckEventArgs) Handles ccb.ItemCheck
         Dim anItem As Item = DirectCast(ccb.Items(e.Index), Item)
         txtOut.AppendText(String.Format("Item '{0}' is about to be {1}", anItem.Name, e.NewValue.ToString) & vbCrLf)
     End Sub
@@ -79,4 +79,15 @@ Public Class Form1
         End Sub
     End Class
 
+    Private Sub ccb_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ccb.SelectedIndexChanged
+        txtOut.AppendText(String.Format("SelectedIndexChanged '{0}' ", ccb.SelectedIndex) & vbCrLf)
+    End Sub
+
+    Private Sub ccb_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ccb.SelectedValueChanged
+        txtOut.AppendText(String.Format("SelectedValueChanged '{0}' ", ccb.SelectedValue) & vbCrLf)
+    End Sub
+
+    Private Sub ccb_SelectionChangeCommitted(ByVal sender As Object, ByVal e As System.EventArgs) Handles ccb.SelectionChangeCommitted
+        txtOut.AppendText(String.Format("SelectionChangeCommitted '{0}' ", ccb.SelectedText) & vbCrLf)
+    End Sub
 End Class
