@@ -248,6 +248,15 @@ Namespace Ui
             End Set
         End Property
 
+        Public Overloads Property ValueMember() As String
+            Get
+                Return _dropdown.List.ValueMember
+            End Get
+            Set(ByVal value As String)
+                _dropdown.List.ValueMember = value
+            End Set
+        End Property
+
         ''' <summary>
         ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内の項目のコレクションを取得します。
         ''' </summary>
