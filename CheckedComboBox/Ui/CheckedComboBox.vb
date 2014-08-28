@@ -386,5 +386,13 @@ Namespace Ui
             _dropdown.List.SetItemCheckState(index, state)
             Me.Text = _dropdown.GetCheckedItemsStringValue
         End Sub
+
+        Public Shadows Function GetItemText(ByVal index As Integer) As String
+            If index < 0 OrElse Items.Count <= index Then
+                Throw New ArgumentOutOfRangeException("index", "value out of range")
+            End If
+            Return _dropdown.List.GetItemText(_dropdown.List.Items(index))
+        End Function
+
     End Class
 End Namespace
