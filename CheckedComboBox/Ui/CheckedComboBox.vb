@@ -1,5 +1,6 @@
 ﻿Imports System.Text
 Imports System.ComponentModel
+Imports System.Drawing.Design
 
 Namespace Ui
     ''' <summary>
@@ -233,6 +234,9 @@ Namespace Ui
             End Set
         End Property
 
+        <DefaultValue(""), _
+        TypeConverter("System.Windows.Forms.Design.DataMemberFieldConverter, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), _
+        Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
         Public Overloads Property DisplayMember() As String
             Get
                 Return _dropdown.List.DisplayMember
@@ -242,6 +246,9 @@ Namespace Ui
             End Set
         End Property
 
+        <DefaultValue(""), _
+        TypeConverter("System.Windows.Forms.Design.DataMemberFieldConverter, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), _
+        Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
         Public Overloads Property ValueMember() As String
             Get
                 Return _dropdown.List.ValueMember
@@ -251,6 +258,10 @@ Namespace Ui
             End Set
         End Property
 
+        <DefaultValue(""), _
+        AttributeProvider(GetType(IListSource)), _
+        RefreshProperties(RefreshProperties.All), _
+        Browsable(True)> _
         Public Shadows Property DataSource() As Object
             Get
                 Return _dropdown.List.DataSource
