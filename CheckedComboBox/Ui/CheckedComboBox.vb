@@ -407,10 +407,23 @@ Namespace Ui
         End Sub
 
         ''' <summary>
+        ''' DisplayMemberの値を取得する
+        ''' </summary>
+        ''' <param name="index">位置index</param>
+        ''' <returns>DisplayMemberの値</returns>
+        ''' <remarks></remarks>
+        Public Overloads Function GetItemText(ByVal index As Integer) As String
+            If index < 0 OrElse Items.Count <= index Then
+                Throw New ArgumentOutOfRangeException("index", "value out of range")
+            End If
+            Return _dropdown.List.GetItemText(_dropdown.List.Items(index))
+        End Function
+
+        ''' <summary>
         ''' ValueMemberの値を取得する ※DataSource指定時のみ
         ''' </summary>
         ''' <param name="index">位置index</param>
-        ''' <returns>値</returns>
+        ''' <returns>ValueMemberの値</returns>
         ''' <remarks></remarks>
         Public Function GetItemValue(ByVal index As Integer) As Object
             If index < 0 OrElse Items.Count <= index Then
