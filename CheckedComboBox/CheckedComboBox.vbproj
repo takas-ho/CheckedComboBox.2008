@@ -91,6 +91,9 @@
     <Compile Include="Ui\CheckedComboBox.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Ui\ExCheckedListBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
