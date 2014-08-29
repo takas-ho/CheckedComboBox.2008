@@ -1,5 +1,6 @@
 ﻿Imports System.Text
 Imports System.ComponentModel
+Imports System.Drawing.Design
 
 Namespace Ui
     ''' <summary>
@@ -232,13 +233,9 @@ Namespace Ui
             End Set
         End Property
 
-        ''' <summary>
-        ''' 一覧を表示するリスト ボックスに格納されているオブジェクトのプロパティを表す文字列を取得または設定します。
-        ''' </summary>
-        ''' <returns>
-        ''' リスト ボックスに格納されているオブジェクトのプロパティ名を表す文字列。既定値は空の文字列 ("") です。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
+        <DefaultValue(""), _
+        TypeConverter("System.Windows.Forms.Design.DataMemberFieldConverter, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), _
+        Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
         Public Overloads Property DisplayMember() As String
             Get
                 Return _dropdown.List.DisplayMember
@@ -248,7 +245,23 @@ Namespace Ui
             End Set
         End Property
 
-        Public Shadows Property DataSource() As Object
+        <DefaultValue(""), _
+        TypeConverter("System.Windows.Forms.Design.DataMemberFieldConverter, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), _
+        Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
+        Public Overloads Property ValueMember() As String
+            Get
+                Return _dropdown.List.ValueMember
+            End Get
+            Set(ByVal value As String)
+                _dropdown.List.ValueMember = value
+            End Set
+        End Property
+
+        <DefaultValue(""), _
+        AttributeProvider(GetType(IListSource)), _
+        RefreshProperties(RefreshProperties.All), _
+        Browsable(True)> _
+        Public Overloads Property DataSource() As Object
             Get
                 Return _dropdown.List.DataSource
             End Get
@@ -270,32 +283,19 @@ Namespace Ui
             End Get
         End Property
 
-        ''' <summary>
-        ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内でチェックされている項目のコレクション。
-        ''' </summary>
-        ''' <returns>
-        ''' <see cref="T:System.Windows.Forms.CheckedListBox"/> の <see cref="T:System.Windows.Forms.CheckedListBox.CheckedItemCollection"/> コレクション。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
         Public ReadOnly Property CheckedItems() As CheckedListBox.CheckedItemCollection
             Get
                 Return _dropdown.List.CheckedItems
             End Get
         End Property
 
-        ''' <summary>
-        ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内でチェックされているインデックスのコレクション。
-        ''' </summary>
-        ''' <returns>
-        ''' <see cref="T:System.Windows.Forms.CheckedListBox"/> の <see cref="T:System.Windows.Forms.CheckedListBox.CheckedIndexCollection"/> コレクション。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
         Public ReadOnly Property CheckedIndices() As CheckedListBox.CheckedIndexCollection
             Get
                 Return _dropdown.List.CheckedIndices
             End Get
         End Property
 
+        ''' <summary>DropDownClosed時に値が変更されていればtrue</summary>
         Public ReadOnly Property ValueChanged() As Boolean
             Get
                 Return _dropdown.ValueChanged
