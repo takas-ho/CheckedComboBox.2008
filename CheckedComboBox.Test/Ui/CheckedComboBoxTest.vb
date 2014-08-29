@@ -53,6 +53,10 @@ Namespace Ui
                 Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
             End Sub
 
+            <Test()> Public Sub GetItemTextでDisplayMember値を取得する(<Values(0, 2, 5, 9)> ByVal index As Integer)
+                Assert.That(sut.GetItemText(index), [Is].EqualTo(TESTING_NAMES(index)))
+            End Sub
+
             <Test()> Public Sub GetItemValueでValueMember値を取得する(<Values(0, 3, 4, 6, 7, 10)> ByVal index As Integer)
                 Assert.That(sut.GetItemValue(index), [Is].EqualTo(index + 20))
             End Sub
