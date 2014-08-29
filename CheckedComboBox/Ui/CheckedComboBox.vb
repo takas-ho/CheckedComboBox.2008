@@ -49,11 +49,9 @@ Namespace Ui
                 End Sub
 
                 Public Function GetItemValue(ByVal index As Integer) As Object
-                    If DataManager Is Nothing Then
-                        Return Nothing
-                    End If
-                    Dim item As Object = DataManager.List(index)
-                    Return FilterItemOnProperty(item, ValueMember)
+                    Dim item As Object = Items(index)
+                    Dim filterItem As Object = FilterItemOnProperty(item, ValueMember)
+                    Return If(filterItem IsNot item, filterItem, Nothing)
                 End Function
             End Class
 
