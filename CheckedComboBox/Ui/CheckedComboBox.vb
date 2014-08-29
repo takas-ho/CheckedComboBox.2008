@@ -364,7 +364,7 @@ Namespace Ui
         End Sub
 
         Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
-            If e.KeyCode = Keys.Down Then
+            If e.KeyCode = Keys.F4 Then
                 OnDropDown(Nothing)
             End If
             e.Handled = Not e.Alt AndAlso e.KeyCode <> Keys.Tab AndAlso Not (e.KeyCode = Keys.Left OrElse e.KeyCode = Keys.Right OrElse e.KeyCode = Keys.Home OrElse e.KeyCode = Keys.End)
