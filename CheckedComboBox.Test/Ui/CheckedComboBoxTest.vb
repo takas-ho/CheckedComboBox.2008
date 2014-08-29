@@ -52,6 +52,7 @@ Namespace Ui
 
                 Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
             End Sub
+
         End Class
 
         Public Class Itemsで表示する : Inherits BaseTest
@@ -62,8 +63,12 @@ Namespace Ui
                     sut.Items.Add(New TestingItem(TESTING_NAMES(i), i + 10))
                 Next
                 sut.DisplayMember = "Name"
+                sut.ValueMember = "Val"
             End Sub
 
+            <Test()> Public Sub GetItemValueはItemsの場合_取得できない(<Values(0, 3, 6, 8)> ByVal index As Integer)
+                Assert.That(sut.GetItemValue(index), [Is].Null)
+            End Sub
         End Class
 
         Public Class DataSourceで表示する : Inherits BaseTest
@@ -72,12 +77,16 @@ Namespace Ui
                 MyBase.SetUp()
                 Dim items As New List(Of TestingItem)
                 For i As Integer = 0 To TESTING_NAMES.Length - 1
-                    items.Add(New TestingItem(TESTING_NAMES(i), i + 10))
+                    items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
                 Next
                 sut.DataSource = items
                 sut.DisplayMember = "Name"
+                sut.ValueMember = "Val"
             End Sub
 
+            <Test()> Public Sub GetItemValueでValueMemberの値を取得する(<Values(0, 4, 7, 10)> ByVal index As Integer)
+                Assert.That(sut.GetItemValue(index), [Is].EqualTo(index + 20))
+            End Sub
         End Class
 
     End Class

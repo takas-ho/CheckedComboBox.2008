@@ -48,6 +48,13 @@ Namespace Ui
                     End If
                 End Sub
 
+                Public Function GetItemValue(ByVal index As Integer) As Object
+                    If DataManager Is Nothing Then
+                        Return Nothing
+                    End If
+                    Dim item As Object = DataManager.List(index)
+                    Return FilterItemOnProperty(item, ValueMember)
+                End Function
             End Class
 
             Private ReadOnly ccbParent As CheckedComboBox
@@ -398,5 +405,19 @@ Namespace Ui
             _dropdown.List.SetItemCheckState(index, state)
             Me.Text = _dropdown.GetCheckedItemsStringValue
         End Sub
+
+        ''' <summary>
+        ''' ValueMemberの値を取得する ※DataSource指定時のみ
+        ''' </summary>
+        ''' <param name="index">位置index</param>
+        ''' <returns>値</returns>
+        ''' <remarks></remarks>
+        Public Function GetItemValue(ByVal index As Integer) As Object
+            If index < 0 OrElse Items.Count <= index Then
+                Throw New ArgumentOutOfRangeException("index", "value out of range")
+            End If
+            Return _dropdown.List.GetItemValue(index)
+        End Function
+
     End Class
 End Namespace
