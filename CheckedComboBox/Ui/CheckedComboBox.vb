@@ -315,6 +315,12 @@ Namespace Ui
             MyBase.Dispose(disposing)
         End Sub
 
+        Protected Overrides Sub OnFontChanged(ByVal e As EventArgs)
+            MyBase.OnFontChanged(e)
+            _dropdown.Font = Me.Font
+            _dropdown.List.Font = Me.Font
+        End Sub
+
         Protected Overrides Sub OnDropDown(ByVal e As EventArgs)
             MyBase.OnDropDown(e)
             DoDropDown()
