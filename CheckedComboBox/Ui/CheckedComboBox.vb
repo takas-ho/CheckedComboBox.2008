@@ -49,7 +49,7 @@ Namespace Ui
 
             End Class
 
-            Private ccbParent As CheckedComboBox
+            Private ReadOnly ccbParent As CheckedComboBox
 
             Private oldStrValue As String = ""
             Public ReadOnly Property ValueChanged() As Boolean
@@ -204,7 +204,7 @@ Namespace Ui
 #End Region
 
         Private components As IContainer
-        Private _dropdown As Dropdown
+        Private ReadOnly _dropdown As Dropdown
 
         Private _valueSeparator As String
         Public Property ValueSeparator() As String
