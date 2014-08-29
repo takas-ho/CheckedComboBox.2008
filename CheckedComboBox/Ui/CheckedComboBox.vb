@@ -248,6 +248,15 @@ Namespace Ui
             End Set
         End Property
 
+        Public Shadows Property DataSource() As Object
+            Get
+                Return _dropdown.List.DataSource
+            End Get
+            Set(ByVal value As Object)
+                _dropdown.List.DataSource = value
+            End Set
+        End Property
+
         ''' <summary>
         ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内の項目のコレクションを取得します。
         ''' </summary>

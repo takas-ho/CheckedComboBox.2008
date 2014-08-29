@@ -42,7 +42,19 @@ Namespace Ui
             sut = New CheckedComboBox
         End Sub
 
-        Public Class ValueSeparator : Inherits CheckedComboBoxTest
+        Public MustInherit Class BaseTest : Inherits CheckedComboBoxTest
+
+            <Test()> Public Sub ValueSeparatorを変更すれば_区切り文字が変更される(<Values(",", "/")> ByVal separator As String)
+                sut.ValueSeparator = separator
+
+                sut.SetItemChecked(0, True)
+                sut.SetItemChecked(1, True)
+
+                Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
+            End Sub
+        End Class
+
+        Public Class Itemsで表示する : Inherits BaseTest
 
             Public Overrides Sub SetUp()
                 MyBase.SetUp()
@@ -52,12 +64,18 @@ Namespace Ui
                 sut.DisplayMember = "Name"
             End Sub
 
-            <Test()> Public Sub Hoge(<Values(",", "/")> ByVal separator As String)
-                sut.ValueSeparator = separator
-                sut.SetItemChecked(0, True)
-                sut.SetItemChecked(1, True)
+        End Class
 
-                Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
+        Public Class DataSourceで表示する : Inherits BaseTest
+
+            Public Overrides Sub SetUp()
+                MyBase.SetUp()
+                Dim items As New List(Of TestingItem)
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    items.Add(New TestingItem(TESTING_NAMES(i), i + 10))
+                Next
+                sut.DataSource = items
+                sut.DisplayMember = "Name"
             End Sub
 
         End Class
