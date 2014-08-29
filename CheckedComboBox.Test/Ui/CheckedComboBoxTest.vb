@@ -53,6 +53,15 @@ Namespace Ui
                 Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
             End Sub
 
+            <Test()> Public Sub GetItemValueでValueMember値を取得する(<Values(0, 3, 4, 6, 7, 10)> ByVal index As Integer)
+                Assert.That(sut.GetItemValue(index), [Is].EqualTo(index + 20))
+            End Sub
+
+            <Test()> Public Sub GetItemValueでValueMember値を取得するが_ValueMemberが空ならnull()
+                sut.ValueMember = ""
+                Assert.That(sut.GetItemValue(5), [Is].Null)
+            End Sub
+
         End Class
 
         Public Class Itemsで表示する : Inherits BaseTest
@@ -60,15 +69,17 @@ Namespace Ui
             Public Overrides Sub SetUp()
                 MyBase.SetUp()
                 For i As Integer = 0 To TESTING_NAMES.Length - 1
-                    sut.Items.Add(New TestingItem(TESTING_NAMES(i), i + 10))
+                    sut.Items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
                 Next
                 sut.DisplayMember = "Name"
                 sut.ValueMember = "Val"
             End Sub
 
-            <Test()> Public Sub GetItemValueはItemsの場合_取得できない(<Values(0, 3, 6, 8)> ByVal index As Integer)
-                Assert.That(sut.GetItemValue(index), [Is].Null)
+            <Test()> Public Sub GetItemValue_ItemsでバインドできないValueMemberならNull(<Values("dummy", "Hoge")> ByVal valueMember As String)
+                sut.ValueMember = valueMember
+                Assert.That(sut.GetItemValue(5), [Is].Null)
             End Sub
+
         End Class
 
         Public Class DataSourceで表示する : Inherits BaseTest
@@ -84,9 +95,15 @@ Namespace Ui
                 sut.ValueMember = "Val"
             End Sub
 
-            <Test()> Public Sub GetItemValueでValueMemberの値を取得する(<Values(0, 4, 7, 10)> ByVal index As Integer)
-                Assert.That(sut.GetItemValue(index), [Is].EqualTo(index + 20))
+            <Test()> Public Sub DataSourceでバインドできないValueMemberなら例外(<Values("dummy", "Hoge")> ByVal valueMember As String)
+                Try
+                    sut.ValueMember = valueMember
+                    Assert.Fail()
+                Catch ex As ArgumentException
+                    Assert.True(True)
+                End Try
             End Sub
+
         End Class
 
     End Class
