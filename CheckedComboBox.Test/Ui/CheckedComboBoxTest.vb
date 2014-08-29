@@ -53,6 +53,9 @@ Namespace Ui
                 Assert.That(sut.Text, [Is].EqualTo("Red" & separator & "Green"))
             End Sub
 
+            <Test()> Public Sub GetItemText(<Values(0, 2, 5, 9)> ByVal index As Integer)
+                Assert.That(sut.GetItemText(index), [Is].EqualTo(TESTING_NAMES(index)))
+            End Sub
         End Class
 
         Public Class Itemsで表示する : Inherits BaseTest
