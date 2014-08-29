@@ -232,13 +232,6 @@ Namespace Ui
             End Set
         End Property
 
-        ''' <summary>
-        ''' 一覧を表示するリスト ボックスに格納されているオブジェクトのプロパティを表す文字列を取得または設定します。
-        ''' </summary>
-        ''' <returns>
-        ''' リスト ボックスに格納されているオブジェクトのプロパティ名を表す文字列。既定値は空の文字列 ("") です。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
         Public Overloads Property DisplayMember() As String
             Get
                 Return _dropdown.List.DisplayMember
@@ -279,32 +272,19 @@ Namespace Ui
             End Get
         End Property
 
-        ''' <summary>
-        ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内でチェックされている項目のコレクション。
-        ''' </summary>
-        ''' <returns>
-        ''' <see cref="T:System.Windows.Forms.CheckedListBox"/> の <see cref="T:System.Windows.Forms.CheckedListBox.CheckedItemCollection"/> コレクション。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
         Public ReadOnly Property CheckedItems() As CheckedListBox.CheckedItemCollection
             Get
                 Return _dropdown.List.CheckedItems
             End Get
         End Property
 
-        ''' <summary>
-        ''' この <see cref="T:System.Windows.Forms.CheckedListBox"/> 内でチェックされているインデックスのコレクション。
-        ''' </summary>
-        ''' <returns>
-        ''' <see cref="T:System.Windows.Forms.CheckedListBox"/> の <see cref="T:System.Windows.Forms.CheckedListBox.CheckedIndexCollection"/> コレクション。
-        ''' </returns>
-        ''' <filterpriority>1</filterpriority>
         Public ReadOnly Property CheckedIndices() As CheckedListBox.CheckedIndexCollection
             Get
                 Return _dropdown.List.CheckedIndices
             End Get
         End Property
 
+        ''' <summary>DropDownClosed時に値が変更されていればtrue</summary>
         Public ReadOnly Property ValueChanged() As Boolean
             Get
                 Return _dropdown.ValueChanged
