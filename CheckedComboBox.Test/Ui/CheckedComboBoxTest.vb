@@ -66,6 +66,20 @@ Namespace Ui
                 Assert.That(sut.GetItemValue(5), [Is].Null)
             End Sub
 
+            <Test()> Public Sub GetValuesChecked_選択値のValueMemberの値を取得する()
+                sut.SetItemChecked(2, True)
+                sut.SetItemChecked(5, True)
+                sut.SetItemChecked(8, True)
+
+                Assert.That(sut.GetValuesChecked(0), [Is].EqualTo(22))
+                Assert.That(sut.GetValuesChecked(1), [Is].EqualTo(25))
+                Assert.That(sut.GetValuesChecked(2), [Is].EqualTo(28))
+            End Sub
+
+            <Test()> Public Sub GetValuesChecked_未選択なら長さ0のList()
+                Assert.That(sut.GetValuesChecked, [Is].Empty)
+                Assert.That(sut.GetValuesChecked, [Is].Not.Null)
+            End Sub
         End Class
 
         Public Class Itemsで表示する : Inherits BaseTest

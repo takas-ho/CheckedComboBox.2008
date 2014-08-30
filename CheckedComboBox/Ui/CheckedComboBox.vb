@@ -381,7 +381,7 @@ Namespace Ui
             MyBase.OnKeyPress(e)
         End Sub
 
-        Public Function GetItemChecked(ByVal index As Integer) As Boolean
+        Public Function IsItemChecked(ByVal index As Integer) As Boolean
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
@@ -425,7 +425,7 @@ Namespace Ui
         End Function
 
         ''' <summary>
-        ''' ValueMemberの値を取得する ※DataSource指定時のみ
+        ''' ValueMemberの値を取得する 
         ''' </summary>
         ''' <param name="index">位置index</param>
         ''' <returns>ValueMemberの値</returns>
@@ -435,6 +435,19 @@ Namespace Ui
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
             Return dropdownList.GetItemValue(index)
+        End Function
+
+        ''' <summary>
+        ''' 選択値のValueMemberの値を取得する
+        ''' </summary>
+        ''' <returns>選択値のValueMemberの値[]</returns>
+        ''' <remarks></remarks>
+        Public Function GetValuesChecked() As List(Of Object)
+            Dim result As New List(Of Object)
+            For Each checkedIndex As Integer In CheckedIndices
+                result.Add(GetItemValue(checkedIndex))
+            Next
+            Return result
         End Function
 
     End Class
