@@ -211,7 +211,13 @@ Namespace Ui
 
         Private components As IContainer
         Private ReadOnly _dropdown As Dropdown
+        Private ReadOnly Property dropdownList() As Dropdown.CustomCheckedListBox
+            Get
+                Return _dropdown.List
+            End Get
+        End Property
 
+#Region "Public properties..."
         Private _valueSeparator As String
         Public Property ValueSeparator() As String
             Get
@@ -231,10 +237,10 @@ Namespace Ui
         ''' <filterpriority>1</filterpriority>
         Public Property CheckOnClick() As Boolean
             Get
-                Return _dropdown.List.CheckOnClick
+                Return dropdownList.CheckOnClick
             End Get
             Set(ByVal value As Boolean)
-                _dropdown.List.CheckOnClick = value
+                dropdownList.CheckOnClick = value
             End Set
         End Property
 
@@ -243,10 +249,10 @@ Namespace Ui
         Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
         Public Overloads Property DisplayMember() As String
             Get
-                Return _dropdown.List.DisplayMember
+                Return dropdownList.DisplayMember
             End Get
             Set(ByVal value As String)
-                _dropdown.List.DisplayMember = value
+                dropdownList.DisplayMember = value
             End Set
         End Property
 
@@ -255,10 +261,10 @@ Namespace Ui
         Editor("System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))> _
         Public Overloads Property ValueMember() As String
             Get
-                Return _dropdown.List.ValueMember
+                Return dropdownList.ValueMember
             End Get
             Set(ByVal value As String)
-                _dropdown.List.ValueMember = value
+                dropdownList.ValueMember = value
             End Set
         End Property
 
@@ -268,10 +274,10 @@ Namespace Ui
         Browsable(True)> _
         Public Overloads Property DataSource() As Object
             Get
-                Return _dropdown.List.DataSource
+                Return dropdownList.DataSource
             End Get
             Set(ByVal value As Object)
-                _dropdown.List.DataSource = value
+                dropdownList.DataSource = value
             End Set
         End Property
 
@@ -284,19 +290,19 @@ Namespace Ui
         ''' <filterpriority>1</filterpriority>
         Public Overloads ReadOnly Property Items() As CheckedListBox.ObjectCollection
             Get
-                Return _dropdown.List.Items
+                Return dropdownList.Items
             End Get
         End Property
 
         Public ReadOnly Property CheckedItems() As CheckedListBox.CheckedItemCollection
             Get
-                Return _dropdown.List.CheckedItems
+                Return dropdownList.CheckedItems
             End Get
         End Property
 
         Public ReadOnly Property CheckedIndices() As CheckedListBox.CheckedIndexCollection
             Get
-                Return _dropdown.List.CheckedIndices
+                Return dropdownList.CheckedIndices
             End Get
         End Property
 
@@ -306,6 +312,7 @@ Namespace Ui
                 Return _dropdown.ValueChanged
             End Get
         End Property
+#End Region
 
         Public Event ItemCheck As ItemCheckEventHandler
 
@@ -332,7 +339,7 @@ Namespace Ui
         Protected Overrides Sub OnFontChanged(ByVal e As EventArgs)
             MyBase.OnFontChanged(e)
             _dropdown.Font = Me.Font
-            _dropdown.List.Font = Me.Font
+            dropdownList.Font = Me.Font
         End Sub
 
         Protected Overrides Sub OnDropDown(ByVal e As EventArgs)
@@ -344,13 +351,13 @@ Namespace Ui
             If Not _dropdown.Visible Then
                 Dim rect As Rectangle = RectangleToScreen(Me.ClientRectangle)
                 _dropdown.Location = New Point(rect.X, rect.Y + Me.Size.Height)
-                Dim count As Integer = _dropdown.List.Items.Count
+                Dim count As Integer = dropdownList.Items.Count
                 If Me.MaxDropDownItems < count Then
                     count = Me.MaxDropDownItems
                 ElseIf count = 0 Then
                     count = 1
                 End If
-                _dropdown.Size = New Size(Me.Size.Width, _dropdown.List.ItemHeight * count + 2)
+                _dropdown.Size = New Size(Me.Size.Width, dropdownList.ItemHeight * count + 2)
                 _dropdown.Show()
             End If
         End Sub
@@ -374,18 +381,18 @@ Namespace Ui
             MyBase.OnKeyPress(e)
         End Sub
 
-        Public Function GetItemChecked(ByVal index As Integer) As Boolean
+        Public Function IsItemChecked(ByVal index As Integer) As Boolean
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            Return _dropdown.List.GetItemChecked(index)
+            Return dropdownList.GetItemChecked(index)
         End Function
 
         Public Sub SetItemChecked(ByVal index As Integer, ByVal isChecked As Boolean)
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            _dropdown.List.SetItemChecked(index, isChecked)
+            dropdownList.SetItemChecked(index, isChecked)
             Me.Text = _dropdown.GetCheckedItemsStringValue
         End Sub
 
@@ -393,14 +400,14 @@ Namespace Ui
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            Return _dropdown.List.GetItemCheckState(index)
+            Return dropdownList.GetItemCheckState(index)
         End Function
 
         Public Sub SetItemCheckState(ByVal index As Integer, ByVal state As CheckState)
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            _dropdown.List.SetItemCheckState(index, state)
+            dropdownList.SetItemCheckState(index, state)
             Me.Text = _dropdown.GetCheckedItemsStringValue
         End Sub
 
@@ -414,11 +421,11 @@ Namespace Ui
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            Return _dropdown.List.GetItemText(_dropdown.List.Items(index))
+            Return dropdownList.GetItemText(dropdownList.Items(index))
         End Function
 
         ''' <summary>
-        ''' ValueMemberの値を取得する ※DataSource指定時のみ
+        ''' ValueMemberの値を取得する 
         ''' </summary>
         ''' <param name="index">位置index</param>
         ''' <returns>ValueMemberの値</returns>
@@ -427,7 +434,20 @@ Namespace Ui
             If index < 0 OrElse Items.Count <= index Then
                 Throw New ArgumentOutOfRangeException("index", "value out of range")
             End If
-            Return _dropdown.List.GetItemValue(index)
+            Return dropdownList.GetItemValue(index)
+        End Function
+
+        ''' <summary>
+        ''' 選択値のValueMemberの値を取得する
+        ''' </summary>
+        ''' <returns>選択値のValueMemberの値[]</returns>
+        ''' <remarks></remarks>
+        Public Function GetValuesChecked() As List(Of Object)
+            Dim result As New List(Of Object)
+            For Each checkedIndex As Integer In CheckedIndices
+                result.Add(GetItemValue(checkedIndex))
+            Next
+            Return result
         End Function
 
     End Class
