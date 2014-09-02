@@ -336,6 +336,21 @@ Namespace Ui
             MyBase.Dispose(disposing)
         End Sub
 
+        Protected Overrides Sub OnDisplayMemberChanged(ByVal e As EventArgs)
+            MyBase.OnDisplayMemberChanged(e)
+            Me.DisplayMember = MyBase.DisplayMember
+        End Sub
+
+        Protected Overrides Sub OnValueMemberChanged(ByVal e As EventArgs)
+            MyBase.OnValueMemberChanged(e)
+            Me.ValueMember = MyBase.ValueMember
+        End Sub
+
+        Protected Overrides Sub OnDataSourceChanged(ByVal e As EventArgs)
+            MyBase.OnDataSourceChanged(e)
+            Me.DataSource = MyBase.DataSource
+        End Sub
+
         Protected Overrides Sub OnFontChanged(ByVal e As EventArgs)
             MyBase.OnFontChanged(e)
             _dropdown.Font = Me.Font
