@@ -141,6 +141,7 @@ Namespace Ui
                 Assert.That(sut.DisplayMember, [Is].EqualTo("Name"), "CheckedComboBox型でも設定されている")
                 Assert.That(sut.ValueMember, [Is].EqualTo("Val"), "CheckedComboBox型でも設定されている")
                 Assert.That(sut.DataSource, [Is].SameAs(items), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.GetItemText(4), [Is].EqualTo(TESTING_NAMES(4)), "問題無く取得できる")
                 Assert.That(sut.GetItemValue(4), [Is].EqualTo(24), "問題無く取得できる")
             End Sub
 
@@ -154,6 +155,31 @@ Namespace Ui
 
                 Assert.That(sut.DisplayMember, [Is].EqualTo("Name"), "CheckedComboBox型でも設定されている")
                 Assert.That(sut.ValueMember, [Is].EqualTo("Val"), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.GetItemText(5), [Is].EqualTo(TESTING_NAMES(5)), "問題無く取得できる")
+                Assert.That(sut.GetItemValue(5), [Is].EqualTo(25), "問題無く取得できる")
+            End Sub
+
+            <Test()> Public Sub DisplayMemberを設定した後にDataSourceを設定しても取得できる()
+                sut.DisplayMember = "Name"
+                sut.ValueMember = "Val"
+                Dim items As New List(Of TestingItem)
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
+                Next
+                sut.DataSource = items
+
+                Assert.That(sut.GetItemText(4), [Is].EqualTo(TESTING_NAMES(4)), "問題無く取得できる")
+                Assert.That(sut.GetItemValue(4), [Is].EqualTo(24), "問題無く取得できる")
+            End Sub
+
+            <Test()> Public Sub DisplayMemberを設定した後にItemsを設定しても取得できる()
+                sut.DisplayMember = "Name"
+                sut.ValueMember = "Val"
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    sut.Items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
+                Next
+
+                Assert.That(sut.GetItemText(5), [Is].EqualTo(TESTING_NAMES(5)), "問題無く取得できる")
                 Assert.That(sut.GetItemValue(5), [Is].EqualTo(25), "問題無く取得できる")
             End Sub
 

@@ -277,7 +277,10 @@ Namespace Ui
                 Return dropdownList.DataSource
             End Get
             Set(ByVal value As Object)
+                Dim bak As String = DisplayMember
+                DisplayMember = ""
                 dropdownList.DataSource = value
+                DisplayMember = bak
             End Set
         End Property
 
