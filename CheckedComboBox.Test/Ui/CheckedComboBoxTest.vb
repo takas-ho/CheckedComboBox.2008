@@ -1,4 +1,5 @@
-﻿Imports NUnit.Framework
+﻿Imports System.Windows.Forms
+Imports NUnit.Framework
 
 Namespace Ui
     Public MustInherit Class CheckedComboBoxTest
@@ -80,6 +81,7 @@ Namespace Ui
                 Assert.That(sut.GetValuesChecked, [Is].Empty)
                 Assert.That(sut.GetValuesChecked, [Is].Not.Null)
             End Sub
+
         End Class
 
         Public Class Itemsで表示する : Inherits BaseTest
@@ -120,6 +122,39 @@ Namespace Ui
                 Catch ex As ArgumentException
                     Assert.True(True)
                 End Try
+            End Sub
+
+        End Class
+
+        Public Class 細かいテスト : Inherits CheckedComboBoxTest
+
+            <Test()> Public Sub ListControlにCastされたCheckedComboBoxにDataSourceやDisplayMemberを設定できる()
+                Dim aListControl As ListControl = DirectCast(sut, ListControl)
+                Dim items As New List(Of TestingItem)
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
+                Next
+                aListControl.DataSource = items
+                aListControl.DisplayMember = "Name"
+                aListControl.ValueMember = "Val"
+
+                Assert.That(sut.DisplayMember, [Is].EqualTo("Name"), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.ValueMember, [Is].EqualTo("Val"), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.DataSource, [Is].SameAs(items), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.GetItemValue(4), [Is].EqualTo(24), "問題無く取得できる")
+            End Sub
+
+            <Test()> Public Sub ListControlにCastされたCheckedComboBoxにItemsやDisplayMemberを設定できる()
+                Dim aListControl As ListControl = DirectCast(sut, ListControl)
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    sut.Items.Add(New TestingItem(TESTING_NAMES(i), i + 20))
+                Next
+                aListControl.DisplayMember = "Name"
+                aListControl.ValueMember = "Val"
+
+                Assert.That(sut.DisplayMember, [Is].EqualTo("Name"), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.ValueMember, [Is].EqualTo("Val"), "CheckedComboBox型でも設定されている")
+                Assert.That(sut.GetItemValue(5), [Is].EqualTo(25), "問題無く取得できる")
             End Sub
 
         End Class
