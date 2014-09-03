@@ -354,6 +354,11 @@ Namespace Ui
             Me.DataSource = MyBase.DataSource
         End Sub
 
+        Protected Overrides Sub OnInvalidated(ByVal e As InvalidateEventArgs)
+            MyBase.OnInvalidated(e)
+            Me.Text = _dropdown.GetCheckedItemsStringValue
+        End Sub
+
         Protected Overrides Sub OnFontChanged(ByVal e As EventArgs)
             MyBase.OnFontChanged(e)
             _dropdown.Font = Me.Font

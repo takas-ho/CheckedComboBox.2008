@@ -43,7 +43,7 @@ Namespace Ui
             sut = New CheckedComboBox
         End Sub
 
-        Public MustInherit Class BaseTest : Inherits CheckedComboBoxTest
+        Public MustInherit Class ItemAndDataSourceBaseTest : Inherits CheckedComboBoxTest
 
             <Test()> Public Sub ValueSeparatorを変更すれば_区切り文字が変更される(<Values(",", "/")> ByVal separator As String)
                 sut.ValueSeparator = separator
@@ -84,7 +84,7 @@ Namespace Ui
 
         End Class
 
-        Public Class Itemsで表示する : Inherits BaseTest
+        Public Class Itemsで表示する : Inherits ItemAndDataSourceBaseTest
 
             Public Overrides Sub SetUp()
                 MyBase.SetUp()
@@ -102,7 +102,7 @@ Namespace Ui
 
         End Class
 
-        Public Class DataSourceで表示する : Inherits BaseTest
+        Public Class DataSourceで表示する : Inherits ItemAndDataSourceBaseTest
 
             Public Overrides Sub SetUp()
                 MyBase.SetUp()
