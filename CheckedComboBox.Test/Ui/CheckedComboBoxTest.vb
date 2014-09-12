@@ -126,6 +126,35 @@ Namespace Ui
 
         End Class
 
+        Public Class DataTableをDataSourceで表示する : Inherits ItemAndDataSourceBaseTest
+
+            Public Overrides Sub SetUp()
+                MyBase.SetUp()
+                Dim dt As New DataTable()
+                dt.Columns.Add("Nm", GetType(String))
+                dt.Columns.Add("Vl", GetType(Integer))
+                For i As Integer = 0 To TESTING_NAMES.Length - 1
+                    Dim dataRow As DataRow = dt.NewRow
+                    dataRow("Nm") = TESTING_NAMES(i)
+                    dataRow("Vl") = i + 20
+                    dt.Rows.Add(dataRow)
+                Next
+                sut.DataSource = dt
+                sut.DisplayMember = "Nm"
+                sut.ValueMember = "Vl"
+            End Sub
+
+            <Test()> Public Sub DataSourceでバインドできないValueMemberなら例外(<Values("dummy", "Hoge")> ByVal valueMember As String)
+                Try
+                    sut.ValueMember = valueMember
+                    Assert.Fail()
+                Catch ex As ArgumentException
+                    Assert.True(True)
+                End Try
+            End Sub
+
+        End Class
+
         Public Class 細かいテスト : Inherits CheckedComboBoxTest
 
             <Test()> Public Sub ListControlにCastされたCheckedComboBoxにDataSourceやDisplayMemberを設定できる()
